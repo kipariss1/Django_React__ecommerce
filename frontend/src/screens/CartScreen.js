@@ -8,6 +8,7 @@ function CartScreen() {
 
     const params = useParams()
     const location = useLocation()
+    const navigate = useNavigate()
     const productId = params.id
     const qty = location.search ? Number(location.search.split('=')[1]) : 1 
 
@@ -19,9 +20,17 @@ function CartScreen() {
 
     useEffect(() => {
         if (productId) {
-            dispatch(addToCart(productId, qty))
+            dispatch(addToCart(productId, Number(qty)))
         }
     }, [dispatch, productId, qty])
+
+    const removeFromCartHandler = (id) => {
+        
+    }
+
+    const checkoutHandler = () => {
+        navigate('/login?redirect=shipping')
+    }
 
     return (
         <div>
@@ -56,7 +65,7 @@ function CartScreen() {
                                                     <select 
                                                         className='form-control form-control-lg xs={auto} my-1'
                                                         value={item.qty}
-                                                        onChange={(e) => dispatch(addToCart(item.product, e.target.value))}
+                                                        onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
                                                     >
                                                         {
                                                             [...Array(item.countInStock).keys()].map((x) => (
@@ -65,6 +74,14 @@ function CartScreen() {
                                                         }        
                                                     </select>
                                                 </div>
+                                            </div>
+                                            <div className='col md={1}'>
+                                                <button
+                                                    className='btn btn-danger'
+                                                    onClick={() => removeFromCartHandler(item.product)}
+                                                >
+                                                    <i className='fas fa-trash'></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </li>
@@ -75,7 +92,24 @@ function CartScreen() {
                 </div>
 
                 <div className='col md={4}'>
-
+                    <div className='card'>
+                        <ul className='list-group list-group-flush'>
+                            <li className='list-group-item'>
+                                <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h2>
+                                <h6>${cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)}</h6>
+                            </li>
+                            <li className='list-group-item'>
+                                <button 
+                                    type="button" 
+                                    className='btn btn-primary d-grid col-10 mx-auto'
+                                    disabled={cartItems.length === 0}
+                                    onClick={checkoutHandler}
+                                >
+                                    Proceed to Checkout
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
