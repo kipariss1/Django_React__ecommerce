@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { listProductDetails } from '../actions/productActions'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
 function ProductScreen() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
@@ -18,6 +19,11 @@ function ProductScreen() {
     useEffect(() => {
         dispatch(listProductDetails(id))
     }, [dispatch])
+
+    const addToCartHandler = () => {
+        navigate(`/cart/${id}?qty=${qty}`)
+    }
+
     return (
         <div>
             <Link to="/" className='btn btn-light my-3'>Go Back</Link>
@@ -77,7 +83,14 @@ function ProductScreen() {
                                             </li>
                                         )}
                                         <li className='list-group-item'>
-                                            <button type='button' disabled={product.countInStock === 0} className='btn btn-primary d-grid col-6 mx-auto'>Add to card</button>
+                                            <button
+                                                onClick={addToCartHandler}
+                                                type='button' 
+                                                disabled={product.countInStock === 0} 
+                                                className='btn btn-primary d-grid col-6 mx-auto'
+                                            >
+                                                Add to card
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
