@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { listProductDetails } from '../actions/productActions'
 import { useParams } from 'react-router-dom'
@@ -12,6 +12,8 @@ function ProductScreen() {
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
     const { error, loading, product = {reviews: []} } = productDetails
+
+    const [qty, setQty] = useState(1)
     
     useEffect(() => {
         dispatch(listProductDetails(id))
@@ -53,6 +55,27 @@ function ProductScreen() {
                                                 </div>
                                             </div>
                                         </li>
+                                        {product.countInStock > 0 && (
+                                            <li className='list-group-item'>
+                                                <div className='row'>
+                                                    <div className='col'>Qty</div>
+                                                    <div className='col'>
+                                                        <div className='form-group'>
+                                                            <select 
+                                                                className='form-control form-control-lg xs={auto} my-1'
+                                                                onChange={(e) => setQty(e.target.value)}
+                                                            >
+                                                                {
+                                                                    [...Array(product.countInStock).keys()].map((x) => (
+                                                                        <option key={x}>{x + 1}</option>
+                                                                    ))
+                                                                }        
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        )}
                                         <li className='list-group-item'>
                                             <button type='button' disabled={product.countInStock === 0} className='btn btn-primary d-grid col-6 mx-auto'>Add to card</button>
                                         </li>
@@ -64,6 +87,5 @@ function ProductScreen() {
         </div>    
     )
 }
-
 
 export default ProductScreen
