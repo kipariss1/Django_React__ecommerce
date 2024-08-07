@@ -41,7 +41,7 @@ function CartScreen() {
                                     <li className='list-group-item' key={item.product}>
                                         <div className='row'>
                                             <div className='col md={2}'>
-                                                <img src={item.image} className='img-fluid'></img>
+                                                <img src={item.image} className='img-fluid rounded' alt={item.name}></img>
                                             </div>
                                             <div className='col md={3}'>
                                                 <Link to={`/product/${item.product}`}>
@@ -50,6 +50,21 @@ function CartScreen() {
                                             </div>
                                             <div className='col md={2}'>
                                                 ${item.price}
+                                            </div>
+                                            <div className='col'>
+                                                <div className='form-group'>
+                                                    <select 
+                                                        className='form-control form-control-lg xs={auto} my-1'
+                                                        value={item.qty}
+                                                        onChange={(e) => dispatch(addToCart(item.product, e.target.value))}
+                                                    >
+                                                        {
+                                                            [...Array(item.countInStock).keys()].map((x) => (
+                                                                <option key={x}>{x + 1}</option>
+                                                            ))
+                                                        }        
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
