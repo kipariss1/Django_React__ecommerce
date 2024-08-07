@@ -13,6 +13,10 @@ function CartScreen() {
 
     const dispatch = useDispatch()
 
+    const cart = useSelector(state => state.cart)
+
+    const { cartItems } = cart
+
     useEffect(() => {
         if (productId) {
             dispatch(addToCart(productId, qty))
@@ -21,7 +25,44 @@ function CartScreen() {
 
     return (
         <div>
-        Cart
+            <div className='row'>
+                <div className='col md={8}'>
+                    <h1>Shopping Cart</h1>
+                    {
+                        cartItems.length === 0 ?  
+                        (
+                            <Message variant="alert alert-info">
+                                Go shop, capitalistic pig! <Link to="/">Go back!</Link>
+                            </Message>
+                        ) : (
+                            <ul className='list-group list-group-flush'>
+                                <h4>Did you buy everything you need, capitalistic pig?</h4>
+                                {cartItems.map((item) => (
+                                    <li className='list-group-item' key={item.product}>
+                                        <div className='row'>
+                                            <div className='col md={2}'>
+                                                <img src={item.image} className='img-fluid'></img>
+                                            </div>
+                                            <div className='col md={3}'>
+                                                <Link to={`/product/${item.product}`}>
+                                                    {item.name}
+                                                </Link>
+                                            </div>
+                                            <div className='col md={2}'>
+                                                ${item.price}
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        )
+                    }
+                </div>
+
+                <div className='col md={4}'>
+
+                </div>
+            </div>
         </div>
     )
 }

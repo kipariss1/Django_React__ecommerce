@@ -14,7 +14,7 @@ const store = configureStore({
     reducer: {
         productList: productListReducer,
         productDetails: productDetailsReducer,
-        cartItems: cartReducer,
+        cart: cartReducer,
     }, 
     initialState: initialState})
 
