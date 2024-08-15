@@ -5,7 +5,7 @@ import {
     USER_LOGIN_SUCCESS
  } from '../constants/userConstatnts'
 
- export const userLoginReducer = (state = {}, action) => {
+ export const userLoginReducer = (state = { userInfo: null }, action) => {
     switch(action.type) {
        case USER_LOGIN_REQUEST:
            return {loading: true}

@@ -21,7 +21,7 @@ export const login = (email, password) => async (dispatch) => {
         }
 
         // getting back token
-        const {data} = axios.post(
+        const {data} = await axios.post(
                 '/api/users/login/',
                 {
                     'username': email,
