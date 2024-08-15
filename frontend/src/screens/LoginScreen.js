@@ -22,6 +22,7 @@ function LoginScreen() {
 
     useEffect(() => {
         if (userInfo) {
+            console.log(redirect)
             navigate(redirect)
         }
     }, [navigate, userInfo, redirect])
@@ -34,6 +35,8 @@ function LoginScreen() {
     return (
         <FormContainer>
             <h1>Sign In</h1>
+            {error && <Message variant="alert alert-danger">Error: {error}</Message>}
+            {loading && <Loader></Loader>}
             <form onSubmit={submitHandler}>
                 <div className='form-group' id='email'>
                     <label>Email Address</label>
