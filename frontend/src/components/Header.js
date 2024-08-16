@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../actions/userActions'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -6,9 +7,10 @@ function Header() {
 
   const userLogin = useSelector(state => state.userLogin)
   const {userInfo} = userLogin
+  const dispatch = useDispatch()
 
   const logoutHandler = () => {
-    console.log("Logging out")
+    dispatch(logout())
   }
 
   return (
@@ -22,7 +24,7 @@ function Header() {
               <div className="collapse navbar-collapse" id="navbarColor02">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                      <a class="nav-link"><Link to="/cart"><i className='fas fa-shopping-cart'></i>Cart</Link></a>
+                      <Link to="/cart" className="nav-link"><i className='fas fa-shopping-cart'></i>Cart</Link>
                     </li>
                     {userInfo ?
                       <li className="nav-item">
@@ -37,8 +39,8 @@ function Header() {
                                   {userInfo.name}
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                  <li><a class="dropdown-item"><Link to='/profile'>Profile</Link></a></li>
-                                  <li onClick={logoutHandler}><a class="dropdown-item"><Link>Logout</Link></a></li>
+                                  <li><Link to='/profile' className='dropdown-item'>Profile</Link></li>
+                                  <li onClick={logoutHandler}><Link className="dropdown-item">Logout</Link></li>
                                 </ul>
                               </li>
                             </ul>
@@ -47,7 +49,7 @@ function Header() {
                       </li>
                       : 
                       <li className="nav-item">
-                        <a class="nav-link"><Link to="/login"><i className='fas fa-user'></i>Login</Link></a>  
+                        <Link to="/login" className="nav-link"><i className='fas fa-user'></i>Login</Link>  
                       </li>
                     }
                 </ul>
