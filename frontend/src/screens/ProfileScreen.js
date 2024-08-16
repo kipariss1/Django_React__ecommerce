@@ -13,8 +13,8 @@ function ProfileScreen() {
 
     const dispatch = useDispatch()
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState('DEFAULT')
+    const [email, setEmail] = useState('DEFAULT')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
@@ -26,10 +26,11 @@ function ProfileScreen() {
     const { userInfo } = userLogin
 
     useEffect(() => {
+        console.log("We re here")
         if (!userInfo) {
             navigate('/login')
         } else {
-            if (!user || !userDetails || !user.name ) {
+            if (!user || !userDetails ) {
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name)
@@ -60,7 +61,7 @@ function ProfileScreen() {
                     <input 
                         type='email' 
                         className='form-control' 
-                        placeholder='Enter email'
+                        placeholder="Email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -71,9 +72,9 @@ function ProfileScreen() {
                     <input
                         type='text'
                         className='form-control'
-                        placeholder='Enter your name'
+                        placeholder="Name"
                         required
-                        value={name}
+                        value={email}
                         onChange={(e) => setName(e.target.value)}
                     ></input>
                 </div>
@@ -83,7 +84,6 @@ function ProfileScreen() {
                         type='password' 
                         className='form-control' 
                         placeholder='Password'
-                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     ></input>
                 </div>
@@ -93,7 +93,6 @@ function ProfileScreen() {
                         type='password' 
                         className='form-control' 
                         placeholder='Confirm Password'
-                        value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     ></input>
                 </div>
