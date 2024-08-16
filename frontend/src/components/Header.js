@@ -34,12 +34,11 @@ function Header() {
                             <ul class="navbar-nav">
                               <li class="nav-item dropdown">
                                 <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Dropdown
+                                  {userInfo.name}
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                  <li><a class="dropdown-item" href="#">Action</a></li>
-                                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                  <li><a class="dropdown-item"><Link to='/profile'>Profile</Link></a></li>
+                                  <li><a class="dropdown-item"><Link to='/logout'>Logout</Link></a></li>
                                 </ul>
                               </li>
                             </ul>
