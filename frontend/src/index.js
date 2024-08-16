@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import './index.css';
 import './bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
