@@ -51,6 +51,25 @@ def registerUser(request):
     serializer = UserSerializerWithToken(user)
     return Response(serializer.data)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializer = UserSerializerWithToken(user)
+
+    data = request.data
+
+    user.first_name = data['first_name']
+    user.last_name = data['last_name']
+    user.email = data['email']
+
+    if data['password'] != '':
+        user.password = make_password(data['password'])
+
+    user.save()
+
+    return Response(serializer.data)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
