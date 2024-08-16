@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { productListReducer, productDetailsReducer } from './reducers/productReducers'
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
+import { userLoginReducer, userRegisterReducer, userDetailsReducer } from './reducers/userReducers'
 import { cartReducer } from './reducers/cartReducers'
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?  JSON.parse(localStorage.getItem('cartItems')) : []
@@ -16,12 +16,16 @@ const initialState = {
     userRegister: {
         userInfo: null
     },
+    userDetails: {
+        user: null
+    },
 }
 
 const store = configureStore({
     reducer: {
         userLogin: userLoginReducer,
         userRegister: userRegisterReducer,
+        userDetails: userDetailsReducer,
         productList: productListReducer,
         productDetails: productDetailsReducer,
         cart: cartReducer,
