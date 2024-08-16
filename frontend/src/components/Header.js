@@ -25,11 +25,11 @@ function Header() {
                       <a class="nav-link"><Link to="/cart"><i className='fas fa-shopping-cart'></i>Cart</Link></a>
                     </li>
                     {userInfo ?
-                        <li className="nav-item">
-                          <div class="container-fluid">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                              <span class="navbar-toggler-icon"></span>
-                            </button>
+                      <li className="nav-item">
+                        <div class="container-fluid">
+                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
                           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                             <ul class="navbar-nav">
                               <li class="nav-item dropdown">
@@ -38,7 +38,7 @@ function Header() {
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                   <li><a class="dropdown-item"><Link to='/profile'>Profile</Link></a></li>
-                                  <li><a class="dropdown-item"><Link to='/logout'>Logout</Link></a></li>
+                                  <li onClick={logoutHandler}><a class="dropdown-item"><Link>Logout</Link></a></li>
                                 </ul>
                               </li>
                             </ul>
