@@ -29,7 +29,7 @@ function ProfileScreen() {
         if (!userInfo) {
             navigate('/login')
         } else {
-            if (!user || !userDetails) {
+            if (!user || !userDetails || !user.name) {
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name)
