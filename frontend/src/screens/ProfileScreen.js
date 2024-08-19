@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import FormContainer from '../components/FormContainer'
-import { getUserDetails } from '../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstatnts'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
 
 function ProfileScreen() {
 
@@ -25,18 +25,22 @@ function ProfileScreen() {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
+
     useEffect(() => {
         if (!userInfo) {
             navigate('/login')
         } else {
-            if (!user) {
+            if (!user || success) {
                 dispatch(getUserDetails('profile'))
+                dispatch({type: USER_UPDATE_PROFILE_RESET})
             } else {
                 setName(user.name)
                 setEmail(user.email)
             }
         }
-    }, [dispatch])
+    }, [dispatch, navigate, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -44,7 +48,18 @@ function ProfileScreen() {
             setMessage('Passwords do not match!')
             return
         }
-        console.log('Updating profile ..')
+        setMessage('')
+        let firstName = name.split(" ")[0]
+        let lastName = name.split(" ")[1]
+        dispatch(updateUserProfile(
+            {
+                'id': user._id,
+                'first_name': firstName,
+                'last_name': lastName ? lastName : '',
+                'email': email,
+                'password': password
+            }
+        ))
     }
 
     return (
