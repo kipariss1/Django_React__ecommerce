@@ -22,7 +22,6 @@ function LoginScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            console.log(redirect)
             navigate(redirect)
         }
     }, [navigate, userInfo, redirect])

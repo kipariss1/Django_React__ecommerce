@@ -26,18 +26,17 @@ function ProfileScreen() {
     const { userInfo } = userLogin
 
     useEffect(() => {
-        console.log("We re here")
         if (!userInfo) {
             navigate('/login')
         } else {
-            if (!user || !userDetails ) {
+            if (!user) {
                 dispatch(getUserDetails('profile'))
             } else {
                 setName(user.name)
                 setEmail(user.email)
             }
         }
-    }, [dispatch, navigate, userInfo, userDetails, user])
+    }, [dispatch])
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -74,7 +73,7 @@ function ProfileScreen() {
                         className='form-control'
                         placeholder="Name"
                         required
-                        value={email}
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                     ></input>
                 </div>
